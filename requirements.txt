@@ -1,0 +1,6 @@
+streamlit>=1.65,<2
+pydantic>=2.11,<3
+requests>=2.32,<3
+python-dotenv>=1.1,<2
+sentry-sdk>=2.72,<3
+pytest>=8.3,<10

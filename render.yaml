@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: fixflow
+    runtime: python
+    plan: starter
+    numInstances: 1
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.address 0.0.0.0 --server.port $PORT --server.headless true
+    healthCheckPath: /_stcore/health
+    disk:
+      name: fixflow-records
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.17
+      - key: FIXFLOW_DB
+        value: /var/data/fixflow.db
+      - key: FIXFLOW_MODE
+        value: demo
+      - key: PUBLIC_DEMO
+        value: "false"
+      - key: MANAGER_PASSWORD
+        sync: false
+      - key: OLLAMA_URL
+        sync: false
+      - key: OLLAMA_MODEL
+        value: gemma3:1b
+      - key: OLLAMA_TIMEOUT
+        value: "60"
+      - key: SENTRY_DSN
+        sync: false
+      - key: SENTRY_ENVIRONMENT
+        value: production
+      - key: SENTRY_TRACES_SAMPLE_RATE
+        value: "0.1"
